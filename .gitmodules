@@ -1,0 +1,21 @@
+[submodule "lib/adafruit_sensor"]
+	path = lib/adafruit_sensor
+	url = https://github.com/adafruit/Adafruit_Sensor.git
+[submodule "lib/HMC5883_Unified"]
+	path = lib/HMC5883_Unified
+	url = https://github.com/adafruit/Adafruit_HMC5883_Unified.git
+[submodule "lib/ArduinoOBD"]
+	path = lib/ArduinoOBD
+	url = https://github.com/stanleyhuangyc/ArduinoOBD.git
+[submodule "lib/Adafruit_FT6206"]
+	path = lib/Adafruit_FT6206
+	url = https://github.com/adafruit/Adafruit_FT6206_Library.git
+[submodule "lib/Adafruit_GFX"]
+	path = lib/Adafruit_GFX
+	url = https://github.com/adafruit/Adafruit-GFX-Library.git
+[submodule "lib/Arduino"]
+	path = lib/Arduino
+	url = https://github.com/arduino/Arduino.git
+[submodule "lib/Adafruit_ILI9341"]
+	path = lib/Adafruit_ILI9341
+	url = https://github.com/adafruit/Adafruit_ILI9341.git
