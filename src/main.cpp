@@ -1,8 +1,7 @@
 #include <Arduino.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_HMC5883_U.h>
-#include <libraries/OBD/OBD.h>
-//#include <OBD.h>
+#include <OBD.h>
 //mpu6050 https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050
 //https://playground.arduino.cc/Main/MPU-6050
 #include <SPI.h>
@@ -20,7 +19,7 @@ Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
 
 Adafruit_HMC5883_Unified mag = Adafruit_HMC5883_Unified(12345);
 
-//COBDI2C obd;
+COBDI2C obd;
 
 
 
