@@ -19,3 +19,6 @@
 [submodule "lib/Adafruit_ILI9341"]
 	path = lib/Adafruit_ILI9341
 	url = https://github.com/adafruit/Adafruit_ILI9341.git
+[submodule "i2cdevlib"]
+	path = lib/i2cdevlib
+	url = https://github.com/jrowberg/i2cdevlib
