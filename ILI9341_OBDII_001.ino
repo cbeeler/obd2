@@ -30,13 +30,13 @@ COBDI2C obd;
 #define BLACK 0x0000
 #define LIGHTER_GRAY 0xE71C
 #define LIGHT_GRAY 0xC618
-#define GRAY 0x39E7 
+#define GRAY 0x39E7
 #define BLUE 0x001F
 #define TEAL 0x075F
 #define TACH_BLUE 0x0018
 #define CYAN 0x07FF
 #define RED 0xF800
-#define ORANGE 0xFA40 
+#define ORANGE 0xFA40
 #define MAGENTA 0xF81F
 #define GREEN 0x0640
 #define BRIGHT_GREEN 0x07E0
@@ -68,7 +68,7 @@ void setup(){
   ctp.begin(50); //Start touchscreen and set sensitivity (0-255). Default is 40
   mag.begin();   //Start magnetometer
   MPU6050_init();
-  obd.begin();   //Start communication with OBD-II 
+  obd.begin();   //Start communication with OBD-II
   pinMode(backlight, OUTPUT);
   analogWrite(backlight, 255);
   tft.setRotation(1);
@@ -125,19 +125,19 @@ if(touched == 0){         //main screen
       if(obd.read(PID_RPM, RPM)){
         displayTachometer(RPM);
       }
-      
+
 //      if(obd.read(PID_SPEED, SPEED)){
 //        displaySpeed(SPEED);
 //      }
       if(obd.read(PID_THROTTLE, TPS)){
         displayTPS(TPS);
       }
-      
+
 //      if(obd.read(PID_ENGINE_LOAD, ENGINE_LOAD)){
 //        displayEngineLoad(ENGINE_LOAD);
 //      }
     }//ii++;
-#if 0    
+#if 0
     if(tt == 0){//20)
       tt = 0;
       /*for(int i = 4; i < 6; i++){
@@ -151,11 +151,11 @@ if(touched == 0){         //main screen
       displayTemps(C_TEMP, A_TEMP);
 
     }//tt++;
-    
+
     //if(gg == 10){
-    //  PIDDISTANCE = random(0, 
+    //  PIDDISTANCE = random(0,
     //}
-    
+
     if(jj == 0){//250){
       jj = 0;
       /*for(int i = 6; i < 7; i++){
@@ -173,7 +173,7 @@ if(touched == 0){         //main screen
         tft.setTextSize(2);
         tft.setTextColor(RED);
         tft.print("LOW");
-        
+
         tft.setCursor(227, 201);
         tft.setTextSize(2);
         tft.setTextColor(RED);
@@ -189,7 +189,7 @@ if(touched == 0){         //main screen
       tft.fillRect(60, 200, 35, 15, BLUE);
       tft.fillRect(226, 200, 35, 15, BLUE);
     }
-#endif   
+#endif
     if(ctp.touched()){
       getNewPoint();
     }
@@ -213,7 +213,7 @@ if(touched == 0){         //main screen
       drawCompassNeedle(HEADING_DEGREES);
       writeHeadingDegrees(HEADING_DEGREES);
     }ii++;
-    
+
     delay(50);
     if(ctp.touched()){
       getNewPoint();
@@ -243,7 +243,7 @@ else if(touched == 3){        //diagnostics
   settingsSymbol();   //settings button
   //screen3StaticText();
   while(touched == 3){
-    
+
     delay(250);
     if(ctp.touched()){
       getNewPoint();
@@ -255,8 +255,8 @@ else if(touched == 4){        //diagnostics cont
   tft.fillScreen(BLUE);
   settingsSymbol();    //settings button
   while(touched == 4){
-    
-    
+
+
     if(ctp.touched()){
       getNewPoint();
     }
@@ -269,8 +269,8 @@ else if(touched == 5){         //code reader
   settingsSymbol();     //settings button
   screen5StaticText();
   while(touched == 5){
-    
-    
+
+
     if(ctp.touched()){
       getNewPoint();
     }
@@ -288,15 +288,15 @@ else if(touched == 69){       //settings screen
       brightness = 255;
       px = 319;
       tft.drawFastVLine(px, 1, 48, ORANGE);
-    }c++;   
+    }c++;
     if(ctp.touched()){
       getNewPoint();
     }
     if(py < 51){
-      setBrightness(px);  
-    } 
+      setBrightness(px);
+    }
     analogWrite(backlight, brightness);
-    
+
     //delay(50);
   }
 }
@@ -312,33 +312,33 @@ void tryConnecting(){
 
 float findHeadingDegrees(){
   //Get a new magnetometer sensor event
-  sensors_event_t event; 
+  sensors_event_t event;
   mag.getEvent(&event);
-     
+
   //Calculate heading in radians
   float heading = atan2(event.magnetic.y, event.magnetic.x);
-      
+
   //Magnetic declination in Louisville, KY is -4° 40' West. ==> .08145 radians http://www.magnetic-declination.com/
   //Encorporate magnetic declination into heading
   float declinationAngle = 0.08145;
   heading += declinationAngle;
-      
+
   //Correct for when signs are reversed.
   if(heading < 0){
     heading += 2*PI;
   }
-        
+
   //Check for wrap due to addition of declination.
   if(heading > 2*PI){
     heading -= 2*PI;
   }
-       
+
   //Convert radians to degrees for readability.
-  HEADING_DEGREES = heading * 180/PI; 
-  
-         
+  HEADING_DEGREES = heading * 180/PI;
+
+
   //float HEADING_DEGREES=random(0.00, 360.00);
-  
+
   //Display heading as a cardinal direction
   if(HEADING_DEGREES >= 337.5 || HEADING_DEGREES < 22.5){         //N
     cardinalHeading("N");
@@ -404,7 +404,7 @@ void writeHeadingDegrees(int HEADING_DEGREES){
   tft.setTextColor(WHITE);
   tft.setTextSize(3);
   tft.fillRect(133, 159, 53, 23, BLUE);
-  tft.print(HEADING_DEGREES);  
+  tft.print(HEADING_DEGREES);
 }
 
 //draw double border for gplot
@@ -419,23 +419,23 @@ void drawCrosshairs(){
   tft.drawFastHLine(50, 119, 219, GRAY);
 }
 
-//write N, S, E, W inside compass 
+//write N, S, E, W inside compass
 void drawInsideCompass(){
   tft.setCursor(152, 13);
   tft.setTextSize(3);
   tft.setTextColor(GRAY);
   tft.print("N");
-  
+
   tft.setCursor(152, 207);
   tft.setTextSize(3);
   tft.setTextColor(GRAY);
   tft.print("S");
-  
+
   tft.setCursor(252, 109);
   tft.setTextSize(3);
   tft.setTextColor(GRAY);
   tft.print("E");
-  
+
   tft.setCursor(51, 109);
   tft.setTextSize(3);
   tft.setTextColor(GRAY);
@@ -449,38 +449,38 @@ void writeToGPlot(){
     xArr[i] = xArr[i-1];
     yArr[i] = yArr[i-1];
   }
-  
+
   //create struct for MPU6050 (acclerometer, gyro, and temperature sensor)
   accel_t_gyro_union mpu;
   MPU6050_readout(&mpu);
-  
+
   float yaccel = (mpu.value.x_accel)/16384.0;
   float xaccel = (mpu.value.y_accel)/16384.0;
   //float zaccel=(mpu.value.z_accel)/16384.0;
-  
+
   //int temp=mpu.value.temperature;
   //int xgyro=mpu.value.x_gyro;
-   
+
   //insert new acceleration value into array position 0
   xArr[0] = xaccel;
   yArr[0] = yaccel;
-  
+
   //erase red dot in last array element
   tft.fillRoundRect((110*xArr[array_size-1])+160-5, (110*-yArr[array_size-1])+120-5, 10, 10, 2, BLUE);
-  
-  //draw green dot in array position 0  
+
+  //draw green dot in array position 0
   tft.fillRoundRect((110*xArr[0])+160-5, (110*-yArr[0])+120-5, 10, 10, 2, DARK_GREEN);
-  
-  //draw red dots  
-  for(int j = 1; j < array_size-1; j++){                                                             
+
+  //draw red dots
+  for(int j = 1; j < array_size-1; j++){
     tft.fillRoundRect((110*xArr[j])+160-5, (110*-yArr[j])+120-5, 10, 10, 2, RED);
   }
-  
+
   //redraw gplot border if magnitude of acceleration is greater than a number
   if(sqrt((xaccel*xaccel)+(yaccel*yaccel)) > 0.95){
     drawGPlotBorder();
   }
-    
+
   //Check to see if value is maximum
   if(abs(xaccel) > lateral_max){
       lateral_max = abs(xaccel);
@@ -499,18 +499,18 @@ void writeToGPlot(){
   tft.fillRect(0, 0, 60, 16, BLUE);   //accel
   tft.fillRect(0, 224, 60, 16, BLUE); //brake
   tft.fillRect(270, 0, 60, 16, BLUE); //lat
-  
+
   //write acceleration maximums
   tft.setTextSize(2);
   tft.setTextColor(BLACK);
-  
+
   tft.setCursor(1, 1);
   tft.print(acceleration_max);
   tft.setCursor(1, 225);
   tft.print(abs(braking_max));
   tft.setCursor(271, 1);
   tft.print(lateral_max);
-  
+
   if(ctp.touched()){
     getNewPoint();
   }
@@ -540,17 +540,17 @@ void backSymbol(){
 void getNewPoint(){
   //Serial.print(touched);
   //Serial.print(" ");
-  //Retrieve a point  
+  //Retrieve a point
   TS_Point p = ctp.getPoint();
-  
+
   //flip y around to match the screen and switch x and y directions
-  px = screenWidth-p.y;    
+  px = screenWidth-p.y;
   py = p.x;
-  
+
 //  Serial.print("("); Serial.print(px);
 //  Serial.print(", "); Serial.print(py);
 //  Serial.println(")");
-    
+
   if(px >= 160 && py < 200 && touched != 69){   //right side
   //Serial.println("right side");
     touched++;
@@ -589,7 +589,7 @@ void getNewPoint(){
 void displayTachometer(int RPM){
   int BLOCK_COLOR, X, TACH;
   TACH = RPM/25;
-  
+
   for(X = 310; X > TACH; X -= 10){
     tft.fillRect(X, 0, 10, 40, BLUE);
   }
@@ -611,7 +611,7 @@ void displayTachometer(int RPM){
   }
   tft.setTextSize(3);
   tft.setTextColor(WHITE);
-  tft.print(RPM);  
+  tft.print(RPM);
 }
 
 //Static text on screen 0
@@ -623,34 +623,34 @@ void screen0StaticText(){
   tft.setTextSize(2);
   tft.setTextColor(BLACK);
   tft.print("FUEL LEVEL");
-  
+
   tft.setCursor(130, 65);    //write "speed"
   tft.setTextSize(2);
   tft.setTextColor(BLACK);
   tft.print("SPEED");
-  
+
   tft.drawRect(1, 68, 38, 102, BLACK);
   tft.setCursor(3, 172);    //write "TPS"
   tft.setTextSize(2);
   tft.setTextColor(BLACK);
   tft.print("TPS");
-  
+
   tft.drawRect(281, 68, 38, 102, BLACK);
   tft.setCursor(283, 172);  //write "ENG"
   tft.setTextSize(2);
   tft.setTextColor(BLACK);
   tft.print("ENG");
-  
+
   tft.setCursor(60, 110);   //write "coolant"
   tft.setTextSize(1);
   tft.setTextColor(BLACK);
   tft.print("COOLANT");
-  
+
   tft.setCursor(218, 110);  //write "ambient"
   tft.setTextSize(1);
   tft.setTextColor(BLACK);
   tft.print("AMBIENT");
-  
+
   tft.setCursor(144, 140);  //write "MPG"
   tft.setTextSize(2);
   tft.setTextColor(BLACK);
@@ -663,95 +663,95 @@ void screen3StaticText(){
   const int column2 = 149;
   tft.setTextSize(2);
   tft.setTextColor(BLACK);
-  
+
   tft.setCursor(column1, 1);
   tft.print("RPM:"); //engine rpm
-  
+
   tft.setCursor(column1, 17);
   tft.print("ENG:"); //engine load
-  
+
   tft.setCursor(column1, 33);
   tft.print("CLT:"); //coolant temp
-  
+
   tft.setCursor(column1, 49);
   tft.print("FPR:"); //fuel pressure
-  
+
   tft.setCursor(column1, 65);
   tft.print("IMP:"); //intake MAP
-  
+
   tft.setCursor(column1, 81);
   tft.print("SPD:"); //vehicle speed
-  
+
   tft.setCursor(column1, 97);
   tft.print("TAD:"); //timing advance
-  
+
   tft.setCursor(column1, 113);
   tft.print("ITP:"); //intake temp
-  
+
   tft.setCursor(column1, 129);
   tft.print("MAF:"); //MAF flow
-  
+
   tft.setCursor(column1, 145);
   tft.print("TPS:"); //throttle
-  
+
   tft.setCursor(column1, 161);
   tft.print("RUN:"); //run time
-  
+
   tft.setCursor(column1, 177);
   tft.print("DWM:"); //distance with MIL
-  
+
   tft.setCursor(column1, 193);
   tft.print("CEG:"); //commanded EGR
-  
+
   tft.setCursor(column1, 209);
   tft.print("EGE:"); //EGR error
-  
+
   tft.setCursor(column1, 225);
   tft.print("FLV:"); //fuel level
-  
+
   //next column
   tft.setCursor(column2, 1);
   tft.print("WUP:"); //warm ups
-  
+
   tft.setCursor(column2, 17);
   tft.print("DST:"); //distance
-  
+
   tft.setCursor(column2, 33);
   tft.print("BAR:"); //barometric
-  
-  tft.setCursor(column2, 49); 
+
+  tft.setCursor(column2, 49);
   tft.print("CMV:"); //control module voltage
-  
+
   tft.setCursor(column2, 65);
   tft.print("AEL:"); //absolute engine load
-  
+
   tft.setCursor(column2, 81);
   tft.print("ATP:"); //ambient temp
-  
+
   tft.setCursor(column2, 97);
   tft.print("TWM:"); //time with MIL
-  
+
   tft.setCursor(column2, 113);
   tft.print("TCC:"); //time since codes cleared
-  
+
   tft.setCursor(column2, 129);
   tft.print("FRP:"); //fuel rail pressure
-  
+
   tft.setCursor(column2, 145);
   tft.print("EOT:"); //engine oil temp
-  
+
   tft.setCursor(column2, 161);
   tft.print("FIT:"); //fuel injection timing
-  
+
   tft.setCursor(column2, 177);
   tft.print("EFR:"); //engine fuel rate
-  
+
   tft.setCursor(column2, 193);
   tft.print("ETD:"); //engine torque demanded
-  
+
   tft.setCursor(column2, 209);
   tft.print("ETP:"); //engine torque percentage
-  
+
   tft.setCursor(column2, 225);
   tft.print("ERT:"); //engine ref torque
 }
@@ -766,7 +766,7 @@ void screen5StaticText(){
 
 //Display speed on screen 0
 void displaySpeed(int SPEED_KPH){
-  int SPEED = round(SPEED_KPH * 0.621371); 
+  int SPEED = round(SPEED_KPH * 0.621371);
   if(SPEED < 10){
     tft.setCursor(150, 85);
   }
@@ -786,14 +786,14 @@ void displaySpeed(int SPEED_KPH){
 void displayTPS(int TPS){
   int Y, TPS_BAR;
   TPS_BAR = 169 - TPS;
-  
-  for(Y = 69; Y < TPS_BAR; Y++){ 
+
+  for(Y = 69; Y < TPS_BAR; Y++){
     tft.drawFastHLine(2, Y, 36, BLUE);
   }
-  for(Y = 168; Y > TPS_BAR - 1; Y--){ 
+  for(Y = 168; Y > TPS_BAR - 1; Y--){
     tft.drawFastHLine(2, Y, 36, GREEN);
   }
-  
+
   if(TPS < 10){
     tft.setCursor(15, 111);
   }
@@ -812,14 +812,14 @@ void displayTPS(int TPS){
 void displayEngineLoad(int ENGINE_LOAD){
   int Y, ENG_BAR;
   ENG_BAR = 169 - ENGINE_LOAD;
-  
-  for(Y = 69; Y < ENG_BAR; Y++){ 
+
+  for(Y = 69; Y < ENG_BAR; Y++){
     tft.drawFastHLine(282, Y, 36, BLUE);
   }
-  for(Y = 168; Y > ENG_BAR - 1; Y--){ 
+  for(Y = 168; Y > ENG_BAR - 1; Y--){
     tft.drawFastHLine(282, Y, 36, GREEN);
   }
-  
+
   if(ENGINE_LOAD < 10){
     tft.setCursor(296, 111);
   }
@@ -843,12 +843,12 @@ void displayTemps(int C_TEMP, int A_TEMP){
     tft.setCursor(63, 120);
   }
   else if(C_TEMP >= 100){
-    tft.setCursor(55, 120);  
+    tft.setCursor(55, 120);
   }
   tft.setTextSize(3);
   tft.setTextColor(WHITE);
   tft.print(C_TEMP);
-  ////////////////////////////////////////  
+  ////////////////////////////////////////
   tft.fillRect(211, 119, 52, 23, BLUE);
   if(A_TEMP < 10){      //ambient temperature
     tft.setCursor(231, 120);
@@ -857,7 +857,7 @@ void displayTemps(int C_TEMP, int A_TEMP){
     tft.setCursor(222, 120);
   }
   else if(A_TEMP >= 100){
-    tft.setCursor(212, 120);  
+    tft.setCursor(212, 120);
   }
   tft.setTextSize(3);
   tft.setTextColor(WHITE);
@@ -872,11 +872,11 @@ void displayFuelMileage(double km1, double km2, int fuelLevel1 int fuelLevel2){
   int tankCapacity=10;  //in gallons
   double gallons=(deltafuelLevel/100)*tankCapacity;
   int mpg=round(miles/gallons);
-  
+
   tft.setCursor( ,  );
   tft.setTextSize(2);
   tft.setTextColor(BLACK);
-  tft.print(mpg);  
+  tft.print(mpg);
 }*/
 
 //Display fuel level on screen 0
@@ -919,7 +919,7 @@ void otherStuffOnSettingsScreen(){
   tft.setTextColor(GRAY);
   tft.print("Brightness");
   }
-  
+
 int setBrightness(int px){
   double level = px/2;
   brightness = (level/160)*255;
