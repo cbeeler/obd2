@@ -1,9 +1,6 @@
 [submodule "lib/adafruit_sensor"]
 	path = lib/adafruit_sensor
 	url = https://github.com/adafruit/Adafruit_Sensor.git
-[submodule "lib/ArduinoOBD"]
-	path = lib/ArduinoOBD
-	url = https://github.com/stanleyhuangyc/ArduinoOBD.git
 [submodule "lib/HMC5883_Unified"]
 	path = lib/HMC5883_Unified
 	url = https://github.com/adafruit/Adafruit_HMC5883_Unified.git
