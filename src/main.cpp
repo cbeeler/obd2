@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <Adafruit_Sensor.h> //General sensor stuff
 //#include <Adafruit_HMC5883_U.h> //Used for magnetometer (compass sensor)
-//#include <OBD.h> //Used for accessing ECU PIDs
+#include <OBD.h> //Used for accessing ECU PIDs
 //#include <MPU6050.h> //Used for accessing accelerometer, gyro, and temperature sensor
 #include <SPI.h> //Used for display and micro SD card
 #include <Wire.h> //I2C Communication. Used for the FT6206, MPU6050 and HMC5883

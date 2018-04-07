@@ -19,3 +19,6 @@
 [submodule "i2cdevlib"]
 	path = lib/i2cdevlib
 	url = https://github.com/jrowberg/i2cdevlib
+[submodule "lib/OBD"]
+	path = lib/OBD
+	url = https://github.com/stanleyhuangyc/ArduinoOBD.git
